@@ -1,11 +1,9 @@
-data1<- fread("D:/work/雷鸟/周数据/周数据717-723.csv", header=TRUE, sep=",", encoding="UTF-8")
-sum1<-fread("D:/work/雷鸟/周数据/联运SDK.csv", header=TRUE, sep=",", encoding="UTF-8")
+library("data.table")
+library("tidyr")
+library("plyr")
 
-data1$支付金额<-data1$支付金额/100
-data1<-data1[-grep("测试",data1$商品名称)]
-data2<-separate(separate(separate(data1,2,into = c("name","supplier"),sep = "_"),7,into = c("year","month","day","hour"),sep = "-"),9,into = c("day","hour"),sep = " ")
-data2[is.na(data2)] <- "T2"
-#data2<-sumdata[which(as.numeric(sumdata$day)>23)]
+sum1<-fread("D:/work/周数据/联运SDK.csv", header=TRUE, sep=",", encoding="UTF-8")
+data2<-sumdata[which(sumdata$day>13)]
 
 data2[which(data2$name=="49.9元购游戏大礼包（10款火爆游戏+手柄1只）")]$supplier<-"小悠"
 data2[which(data2$name=="49.9元购游戏大礼包（10款火爆游戏 手柄1只）")]$supplier<-"小悠"
@@ -29,11 +27,7 @@ data2[which(data2$name=="僵尸吃鸡")]$supplier<-"刀传"
 data2[which(data2$name=="蛇蛇出击")]$supplier<-"游谷"
 data2[which(data2$name=="音乐跳一跳")]$supplier<-"刀传"
 data2[which(data2$name=="饿狼传说")]$supplier<-"小悠"
-for (i in 1:nrow(data2)) {
-  if (data2$name[i]=="T2游戏平台") {
-    data2$name[i]<-data2$商品名称[i]
-  }
-}
+
 for(i in 1:nrow(sum1)){
   sum1$pay[i]<-sum(data2[which(data2$supplier==sum1$name[i])]$支付金额)
 }
@@ -58,5 +52,5 @@ for (i in 1:nrow(sum2)) {
   sum2$payPer[i]<-sum(as.numeric(data2[which(data2$name==sum2$name[i])]$支付状态))
 }
 
-write.csv(sum1,"D:/work/雷鸟/周数据/t1.csv", row.names = F)
-write.csv(sum2,"D:/work/雷鸟/周数据/t2.csv", row.names = F)
+write.csv(sum1,"D:/work/周数据/t1.csv", row.names = F)
+write.csv(sum2,"D:/work/周数据/t2.csv", row.names = F)
