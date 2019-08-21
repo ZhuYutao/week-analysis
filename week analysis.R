@@ -2,11 +2,11 @@ library("data.table")
 library("tidyr")
 library("plyr")
 
-data1<- fread("D:/work/雷鸟/日数据/周数据731-806.csv", header=TRUE, sep=",", encoding="UTF-8")
+data1<- fread("D:/work/雷鸟/日数据/周数据814-820.csv", header=TRUE, sep=",", encoding="UTF-8")
 sum1<-fread("D:/work/雷鸟/日数据/数据汇总.csv", header=TRUE, sep=",", encoding="UTF-8")
 #sum<-fread("D:/work/雷鸟/日数据/dailyData.csv", header=TRUE, sep=",", encoding="UTF-8")
 #view<-fread("D:/work/雷鸟/日数据/pv25.csv", header=TRUE, sep=",", encoding="UTF-8")
-download<-fread("D:/work/雷鸟/日数据/download24.csv", header=TRUE, sep=",", encoding="UTF-8")
+download<-fread("D:/work/雷鸟/日数据/download814-820.csv", header=TRUE, sep=",", encoding="UTF-8")
 
 download<-separate(download,3,into = c("name","activity"),sep = "（")
 download<-download[,-4]
@@ -85,5 +85,5 @@ for (i in 1:nrow(sum1)) {
 }
 
 
-write.csv(sum1,"D:/work/雷鸟/周数据/Week Analysis8.7-8.13.csv", row.names = F)
+write.csv(sum1,"D:/work/雷鸟/周数据/Week Analysis8.14-8.20.csv", row.names = F)
           
